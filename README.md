@@ -21,4 +21,5 @@
 - Nodejs
 - Express
 - Zod
-- MongoDB
+- PostgreSQL
+- Prisma
