@@ -12,7 +12,7 @@ router.post("/signup", async (req, res) => {
   const parsedSchema = userSignupSchema.safeParse(req.body);
 
   if (!parsedSchema.success) {
-    return res.status(400).json({ message: parsedSchema.error.message });
+    return res.status(400).json({ message: parsedSchema.error.issues[0]?.message });
   }
 
   const { firstName, lastName, email, password } = parsedSchema.data;
@@ -69,10 +69,10 @@ router.post("/signin", async (req, res) => {
     if (!existingUser) {
       return res
         .status(404)
-        .json({ message: "User does not exist, try signing up" });
+        .json({ message: "Incorrect email or password" });
     }
 
-    const token = createToken(email);
+    const token = createToken(existingUser.id, existingUser.email);
 
     return res.status(200).json({
       message: "Successfully signed in",
