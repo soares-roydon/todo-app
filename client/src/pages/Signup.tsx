@@ -13,7 +13,7 @@ function Signup() {
   const navigate = useNavigate()
 
   async function handleSignup() {
-    const response = await fetch("http://localhost:3000/api/v1/user/signup", {
+    const response = await fetch("https://todo-app-backend-sigma-rosy.vercel.app/api/v1/user/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -8,7 +8,7 @@ function AddTodo({setShowForm}: {setShowForm: (value: boolean) => void}) {
   const [description, setDescription] = useState("");
 
   async function handleAddTodo() {
-    fetch("http://localhost:3000/api/v1/todo/create-todo", {
+    fetch("https://todo-app-backend-sigma-rosy.vercel.app/api/v1/todo/create-todo", {
       method: "POST",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),

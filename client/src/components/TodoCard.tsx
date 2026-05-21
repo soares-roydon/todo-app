@@ -11,7 +11,7 @@ function TodoCard({id, title, description, isCompleted}: Todo) {
   }, [])
 
   async function handleDeleteTodo() {
-    fetch("http://localhost:3000/api/v1/todo/delete/" + id, {
+    fetch("https://todo-app-backend-sigma-rosy.vercel.app/api/v1/todo/delete/" + id, {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -21,7 +21,7 @@ function TodoCard({id, title, description, isCompleted}: Todo) {
   }
 
   async function handleIsDone() {
-    fetch("http://localhost:3000/api/v1/todo/mark-as-done/" + id, {
+    fetch("https://todo-app-backend-sigma-rosy.vercel.app/api/v1/todo/mark-as-done/" + id, {
       method: "PUT",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),

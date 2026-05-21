@@ -9,7 +9,7 @@ const [name, setName] = useState("");
 const navigate = useNavigate()
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/v1/user/me", {
+    fetch("https://todo-app-backend-sigma-rosy.vercel.app/api/v1/user/me", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },

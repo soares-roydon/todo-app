@@ -7,7 +7,7 @@ function Main({ name }: { name: string }) {
   const [ showForm, setShowForm ] = useState(false)
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/v1/todo/get-todos", {
+    fetch("https://todo-app-backend-sigma-rosy.vercel.app/api/v1/todo/get-todos", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
