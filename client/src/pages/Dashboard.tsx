@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import Main from "../components/Main";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
 const [name, setName] = useState("");
+const navigate = useNavigate()
 
   useEffect(() => {
     fetch("http://localhost:3000/api/v1/user/me", {
@@ -14,7 +16,7 @@ const [name, setName] = useState("");
     })
       .then((response) => {
         if (!response.ok) {
-          return;
+          navigate("/signin")
         }
         return response.json();
       })
