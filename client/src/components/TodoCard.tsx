@@ -4,6 +4,7 @@ import colorPicker from "../utils/colorPicker";
 
 function TodoCard({id, title, description, isCompleted}: Todo) {
   const [colorClass, setColorClass] = useState("")
+  const [ isDone, setIsDone ] = useState(isCompleted)
 
    useEffect(() => {
     setColorClass("col-span-1 border-r rounded-l-xl border-zinc-400 " + colorPicker())
@@ -17,8 +18,18 @@ function TodoCard({id, title, description, isCompleted}: Todo) {
         "Content-Type": "application/json"
       },
     })
-
   }
+
+  async function handleIsDone() {
+    fetch("http://localhost:3000/api/v1/todo/mark-as-done/" + id, {
+      method: "PUT",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+        "Content-Type": "application/json"
+      },
+    })
+  }
+
   return (
     <>
       <div className="grid grid-cols-20 border border-zinc-300 rounded-xl shadow text-zinc-700">
@@ -31,6 +42,12 @@ function TodoCard({id, title, description, isCompleted}: Todo) {
               name="isCompleted"
               id=""
               className="size-5 accent-indigo-400"
+              checked={isDone}
+              onClick={() => {
+                setIsDone(!isDone)
+                handleIsDone()
+              }
+              }
             />
           </div>
           <div className="flex justify-between items-center pr-3">
