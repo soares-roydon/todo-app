@@ -5,6 +5,7 @@ import {
 } from "../validators/userSchema.js";
 import { prisma } from "../lib/prisma.js";
 import createToken from "../utils/createToken.js";
+import { authMiddleware } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -82,5 +83,15 @@ router.post("/signin", async (req, res) => {
     return res.status(500).json({ message: "Some internal error occurred" });
   }
 });
+
+router.get("/me", authMiddleware, async (req, res) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      id: req.userId!
+    }
+  })
+
+  return res.status(200).json({user})
+})
 
 export { router };

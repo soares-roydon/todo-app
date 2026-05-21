@@ -1,10 +1,12 @@
 import express from "express"
+import cors from "cors"
 import { router as userRouter } from "./routes/user.js"
 import { router as todoRouter } from "./routes/todo.js"
 
 const app = express()
 const PORT = 3000
 
+app.use(cors())
 app.use(express.json())
 
 // user (sign in, sign up)

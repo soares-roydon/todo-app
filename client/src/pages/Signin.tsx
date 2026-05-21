@@ -1,8 +1,38 @@
+import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import Label from "../components/Label";
+import { useState } from "react";
 
-function Signup() {
+function Signin() {
+  const [ email, setEmail ] = useState("")
+  const [ password, setPassword ] = useState("")
+
+  const navigate = useNavigate();
+
+
+
+  async function handleSignin() {
+    const response = await fetch("http://localhost:3000/api/v1/user/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email,
+        password
+      })
+    })
+
+    if(!response.ok) {
+      return
+    }
+
+    const data = await response.json()
+    localStorage.setItem("token", data.token)
+    navigate("/")
+  }
+
   return (
     <div className="flex justify-center items-center h-screen border">
       <div className="flex flex-col gap-5 w-sm">
@@ -34,18 +64,23 @@ function Signup() {
           </div>
           <div className="flex flex-col gap-1 mb-3">
             <Label>Email</Label>
-            <Input type={"email"} placeholder={"walter@gmail.com"} />
+            <Input type={"email"} placeholder={"walter@gmail.com"} onChange={(e: any) => {setEmail(e.target.value)}}/>
           </div>
           <div className="flex flex-col gap-1 mb-3">
             <Label>Password</Label>
-            <Input type={"password"} placeholder={"******"} />
+            <Input type={"password"} placeholder={"******"} onChange={(e: any) => {setPassword(e.target.value)}}/>
           </div>
           <div className="mt-4">
-            <Button>Sign up</Button>
+            <Button onClick={handleSignin}>Sign in</Button>
           </div>
           <div className="flex gap-1 justify-center text-sm text-zinc-500 mt-5">
             <div>Don't have an account?</div>
-            <div className="underline text-orange-600 cursor-pointer">
+            <div
+              className="underline text-orange-600 cursor-pointer"
+              onClick={() => {
+                navigate("/signup");
+              }}
+            >
               sign up
             </div>
           </div>
@@ -55,4 +90,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default Signin;

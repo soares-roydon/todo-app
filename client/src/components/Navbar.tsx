@@ -1,4 +1,7 @@
-function Navbar() {
+import { useNavigate } from "react-router-dom";
+
+function Navbar({ name }: { name: string }) {
+  const navigate = useNavigate();
   return (
     <>
       <div className="flex justify-between px-6 py-2 border-b shadow border-zinc-300">
@@ -10,9 +13,9 @@ function Navbar() {
             viewBox="0 0 24 24"
             fill="none"
             stroke="#f97316"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
             <path d="M13 5h8" />
             <path d="M13 12h8" />
@@ -24,7 +27,7 @@ function Navbar() {
         </div>
         <div className="flex gap-3 items-center">
           <div className="flex justify-center items-center border rounded-full w-10 h-10 bg-blue-500 text-white font-semibold">
-            R
+            {name[0]}
           </div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -33,6 +36,10 @@ function Navbar() {
             strokeWidth={1.5}
             stroke="currentColor"
             className="size-6 text-zinc-900 cursor-pointer"
+            onClick={() => {
+              localStorage.removeItem("token");
+              navigate("/signin");
+            }}
           >
             <path
               strokeLinecap="round"

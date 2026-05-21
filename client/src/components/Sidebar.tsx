@@ -1,7 +1,7 @@
 function Sidebar() {
   return (
     <>
-      <div className="flex flex-col bg-orange-200 h-screen">
+      <div className="flex flex-col bg-orange-200 h-screen border-r border-zinc-400 shadow">
         <div className="flex items-center gap-2 border-b border-zinc-300 shadow py-3 pl-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +17,7 @@ function Sidebar() {
               d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
             />
           </svg>
-          <div className="text-xl font-medium text-zinc-700">Menu</div>
+          <div className="text-xl font-bold text-zinc-700">Menu</div>
         </div>
         <div className="px-3 mt-4 py-2">
           <div className="flex gap-2 items-center rounded py-2 px-2 text-sm text-zinc-900 border-zinc-400 cursor-pointer border-b hover:bg-orange-300">

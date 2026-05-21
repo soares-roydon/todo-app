@@ -1,11 +1,31 @@
-function TodoCard() {
+import { useEffect, useState } from "react";
+import type { Todo } from "./Todos";
+import colorPicker from "../utils/colorPicker";
+
+function TodoCard({id, title, description, isCompleted}: Todo) {
+  const [colorClass, setColorClass] = useState("")
+
+   useEffect(() => {
+    setColorClass("col-span-1 border-r rounded-l-xl border-zinc-400 " + colorPicker())
+  }, [])
+
+  async function handleDeleteTodo() {
+    fetch("http://localhost:3000/api/v1/todo/delete/" + id, {
+      method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+        "Content-Type": "application/json"
+      },
+    })
+
+  }
   return (
     <>
-      <div className="grid grid-cols-20 border border-zinc-300 rounded-xl shadow text-zinc-800">
-        <div className="col-span-1 border-r rounded-l-xl border-zinc-400 bg-blue-400"></div>
+      <div className="grid grid-cols-20 border border-zinc-300 rounded-xl shadow text-zinc-700">
+        <div className={colorClass}></div>
         <div className="col-span-19">
           <div className="flex justify-between items-center pr-4 border-b border-zinc-300">
-            <div className="px-4 py-2 ">Title</div>
+            <div className="px-4 py-2 ">{title}</div>
             <input
               type="checkbox"
               name="isCompleted"
@@ -14,7 +34,7 @@ function TodoCard() {
             />
           </div>
           <div className="flex justify-between items-center pr-3">
-            <div className="px-4 py-2">Description</div>
+            <div className="px-4 py-2 text-zinc-500 text-sm">{description}</div>
             <div className="flex gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -37,6 +57,7 @@ function TodoCard() {
               strokeWidth={1.5}
               stroke="currentColor"
               className="size-5 text-zinc-400 cursor-pointer"
+              onClick={handleDeleteTodo}
             >
               <path
                 strokeLinecap="round"

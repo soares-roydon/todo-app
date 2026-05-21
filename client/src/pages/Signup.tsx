@@ -1,8 +1,40 @@
+import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import Label from "../components/Label";
+import { useState } from "react";
 
 function Signup() {
+  const [ firstName, setFirstName ] = useState("")
+  const [ lastName, setLastName ] = useState("")
+  const [ email, setEmail ] = useState("")
+  const [ password, setPassword ] = useState("")
+
+  const navigate = useNavigate()
+
+  async function handleSignup() {
+    const response = await fetch("http://localhost:3000/api/v1/user/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        email,
+        password
+      })
+    })
+
+    if(!response.ok) {
+      return
+    }
+
+    alert("Successfully signed up, try sign in now.")
+    navigate("/signin")
+
+  }
+
   return (
     <div className="flex justify-center items-center h-screen border">
       <div className="flex flex-col gap-5 w-sm">
@@ -34,26 +66,26 @@ function Signup() {
           </div>
           <div className="flex flex-col gap-1 mb-3">
             <Label>First name</Label>
-            <Input type={"text"} placeholder={"Walter"} />
+            <Input type={"text"} placeholder={"Walter"} onChange={(e: any) => {setFirstName(e.target.value)}}/>
           </div>
           <div className="flex flex-col gap-1 mb-3">
             <Label>Last name</Label>
-            <Input type={"text"} placeholder={"White"} />
+            <Input type={"text"} placeholder={"White"} onChange={(e: any) => {setLastName(e.target.value)}}/>
           </div>
           <div className="flex flex-col gap-1 mb-3">
             <Label>Email</Label>
-            <Input type={"email"} placeholder={"walter@gmail.com"} />
+            <Input type={"email"} placeholder={"walter@gmail.com"} onChange={(e: any) => {setEmail(e.target.value)}}/>
           </div>
           <div className="flex flex-col gap-1 mb-3">
             <Label>Password</Label>
-            <Input type={"password"} placeholder={"******"} />
+            <Input type={"password"} placeholder={"******"} onChange={(e: any) => {setPassword(e.target.value)}}/>
           </div>
           <div className="mt-4">
-            <Button>Sign up</Button>
+            <Button onClick={handleSignup}>Sign up</Button>
           </div>
           <div className="flex gap-1 justify-center text-sm text-zinc-500 mt-5">
             <div>Already have an account?</div>
-            <div className="underline text-orange-600 cursor-pointer">
+            <div className="underline text-orange-600 cursor-pointer" onClick={() => {navigate("/signin")}}>
               sign in
             </div>
           </div>
